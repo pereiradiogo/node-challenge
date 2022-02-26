@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  api:
+    image: project_api:latest
+    container_name: "docker_api"
+    ports:
+      - "8081:80"
+  client:
+    image: project_client:latest
+    container_name: "docker_client"
+    ports:
+      - "2227:2227"
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: swordhealth
+      MYSQL_DATABASE: sword
