@@ -10,4 +10,4 @@ RUN npm install
 # COPY api.app.js api.app.js
 
 EXPOSE 3000
-CMD [ "node", "start" ]
+CMD [ "npm", "start" ]
