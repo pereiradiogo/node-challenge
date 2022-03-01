@@ -22,7 +22,23 @@ async function create(summary) {
     return connection.then((conn) => {
         return conn.query("INSERT INTO tasks (summary) VALUES ('" + summary + "');");
     }).then((result, fields) => {
-        return result[0].affectedRows;
+        return result[0].affectedRows > 0;
+    }).catch((error) => {
+        console.log(error);
+    })
+}
+
+/**
+ * Update new task
+ * @param {integer} id 
+ * @param {string} summary 
+ * @returns 
+ */
+async function update(id, summary) {
+    return connection.then((conn) => {
+        return conn.query("UPDATE tasks SET summary = '" + summary + "' WHERE id = " + id);
+    }).then((result, fields) => {
+        return result[0].affectedRows > 0;
     }).catch((error) => {
         console.log(error);
     })
@@ -44,4 +60,4 @@ async function remove(id) {
 }
 
 
-module.exports = { list, create, remove }
+module.exports = { list, create, update, remove }
