@@ -23,6 +23,9 @@ router.post('/', function(req, res) {
     if (!req.body.summary) {
         res.send({ code: 400, message: 'Invalid request' });
         res.status(400);
+    } else if (req.body.summary.length > 2500) {
+        res.send({ code: 400, message: 'Summary is to long' });
+        res.status(400);
     } else {
         tasksModel.create(req.body.summary).then(results => {
             res.send({ message: 'Task created' });
