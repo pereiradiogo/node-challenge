@@ -28,5 +28,20 @@ async function create(summary) {
     })
 }
 
+/**
+ * Delete task
+ * @param {integer} id 
+ * @returns 
+ */
+async function remove(id) {
+    return connection.then((conn) => {
+        return conn.query("DELETE FROM tasks WHERE id = " + id + ";");
+    }).then((result, fields) => {
+        return result[0].affectedRows > 0;
+    }).catch((error) => {
+        console.log(error);
+    })
+}
 
-module.exports = { list, create }
+
+module.exports = { list, create, remove }

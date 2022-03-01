@@ -38,4 +38,26 @@ router.post('/', function(req, res) {
 
 });
 
+/* CREATE tasks. */
+router.delete('/:id', function(req, res) {
+    if (!req.params.id || req.params.id == '') {
+        res.send({ code: 400, message: 'Invalid request' });
+        res.status(400);
+    } else {
+        tasksModel.remove(req.params.id).then(results => {
+            if (results) {
+                res.send({ message: 'Task removed' });
+                res.status(200);
+            } else {
+                res.send({ message: 'Task not found' });
+                res.status(404);
+            }
+        }).catch(() => {
+            res.send({ code: 500, message: 'Error on delete tasks' });
+            res.status(500);
+        });
+    }
+
+});
+
 module.exports = router;
