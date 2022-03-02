@@ -21,18 +21,18 @@ router.get('/', function(req, res) {
 /* CREATE tasks. */
 router.post('/', function(req, res) {
     if (!req.body.summary) {
+        res.status(400);
         res.send({ code: 400, message: 'Invalid request' });
-        res.status(400);
     } else if (req.body.summary.length > 2500) {
-        res.send({ code: 400, message: 'Summary is to long' });
         res.status(400);
+        res.send({ code: 400, message: 'Summary is to long' });
     } else {
         tasksModel.create(req.body.summary).then(results => {
-            res.send({ message: 'Task created' });
             res.status(201);
+            res.send({ message: 'Task created' });
         }).catch(() => {
-            res.send({ code: 500, message: 'Error to create tasks' });
             res.status(500);
+            res.send({ code: 500, message: 'Error to create tasks' });
         });
     }
 
@@ -42,23 +42,23 @@ router.post('/', function(req, res) {
 /* UPDATE tasks. */
 router.put('/:id', function(req, res) {
     if (!req.body.summary || !req.params.id || req.params.id == '') {
+        res.status(400);
         res.send({ code: 400, message: 'Invalid request' });
-        res.status(400);
     } else if (req.body.summary.length > 2500) {
-        res.send({ code: 400, message: 'Summary is to long' });
         res.status(400);
+        res.send({ code: 400, message: 'Summary is to long' });
     } else {
         tasksModel.update(req.params.id, req.body.summary).then(results => {
             if (results) {
-                res.send({ message: 'Task updated' });
                 res.status(200);
+                res.send({ message: 'Task updated' });
             } else {
-                res.send({ message: 'Task not found' });
                 res.status(404);
+                res.send({ message: 'Task not found' });
             }
         }).catch(() => {
-            res.send({ code: 500, message: 'Error to update tasks' });
             res.status(500);
+            res.send({ code: 500, message: 'Error to update tasks' });
         });
     }
 });
@@ -66,20 +66,20 @@ router.put('/:id', function(req, res) {
 /* CREATE tasks. */
 router.delete('/:id', function(req, res) {
     if (!req.params.id || req.params.id == '') {
-        res.send({ code: 400, message: 'Invalid request' });
         res.status(400);
+        res.send({ code: 400, message: 'Invalid request' });
     } else {
         tasksModel.remove(req.params.id).then(results => {
             if (results) {
-                res.send({ message: 'Task removed' });
                 res.status(200);
+                res.send({ message: 'Task removed' });
             } else {
-                res.send({ message: 'Task not found' });
                 res.status(404);
+                res.send({ message: 'Task not found' });
             }
         }).catch(() => {
-            res.send({ code: 500, message: 'Error on delete tasks' });
             res.status(500);
+            res.send({ code: 500, message: 'Error on delete tasks' });
         });
     }
 
