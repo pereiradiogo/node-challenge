@@ -13,3 +13,5 @@
 1 - docker-compose -f docker-compose.build.yml build
 
 2 - docker-compose up -d or docker-compose down
+
+3 - api at http://localhost:8081/tasks
