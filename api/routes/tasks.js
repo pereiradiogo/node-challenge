@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const tasksModel = require('../database/tasks')
+const tasksBroker = require('../broker/tasks')
 
 /* GET tasks listing. */
 router.get('/', function(req, res) {
@@ -28,6 +29,9 @@ router.post('/', function(req, res) {
         res.send({ code: 400, message: 'Summary is to long' });
     } else {
         tasksModel.create(req.body.summary).then(results => {
+
+            tasksBroker.create(req.body.summary);
+
             res.status(201);
             res.send({ message: 'Task created' });
         }).catch(() => {
